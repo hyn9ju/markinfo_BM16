@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>브랜드 스타일 매트릭스 16 — 마크인포</title>
+<meta name="description" content="브랜드의 인상을 네 가지 축으로 진단해 16가지 스타일 좌표를 찾고, 색·글꼴·목업까지 한 번에 확인하는 마크인포의 브랜드 진단 도구.">
+<meta name="theme-color" content="#12B97E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="브랜드 스타일 매트릭스 16 — 마크인포">
+<meta property="og:description" content="내 브랜드에 어울리는 디자인 스타일 찾기">
+<meta property="og:image" content="assets/img/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/brand/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/img/brand/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <div onclick="goHome()" style="display:flex;align-items:center;gap:14px;cursor:pointer" title="첫 화면으로">
+    <img id="logoImg" alt="마크인포" src="assets/img/brand/markinfo-logo.webp">
+    <div>
+      <div class="t1">브랜드 스타일 매트릭스 <span style="color:var(--green-deep)">16</span></div>
+      <div class="t2">내 브랜드에 어울리는 디자인 스타일 찾기</div>
+    </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ INTRO ============ -->
+<section id="intro" class="show">
+  <div class="wrap">
+    <span class="eyebrow">디자인을 몰라도 3분이면 충분해요</span>
+    <h1>내 브랜드의 스타일,<br><em>12가지 질문</em>으로 찾아보세요</h1>
+    <p class="sub">무게감 · 에너지 · 설득 방식 · 시대감. 네 개의 기준을 정하면
+    16가지 스타일 중 내 브랜드의 자리가 정해지고, 어울리는 색과 글꼴까지 함께 보여드립니다.</p>
+    <div class="brand-name-box">
+      <label for="brandNameInput">브랜드 이름</label>
+      <input id="brandNameInput" maxlength="24" placeholder="예: 마크인포 — 입력하면 추천 글꼴이 이 이름으로 보여요">
+    </div>
+    <div class="biz-box">
+      <label>업종 <span class="biz-hint">선택하면 업종에 맞는 목업 화면이 결과에 나와요</span></label>
+      <div class="biz-chips" id="bizChips"><button type="button" class="biz-chip" data-biz="fnb">F&amp;B</button><button type="button" class="biz-chip" data-biz="beauty">뷰티·코스메틱</button><button type="button" class="biz-chip" data-biz="fashion">패션</button><button type="button" class="biz-chip" data-biz="life">라이프스타일</button><button type="button" class="biz-chip" data-biz="tech">테크·IT</button><button type="button" class="biz-chip" data-biz="finance">금융·핀테크</button><button type="button" class="biz-chip" data-biz="medical">의료·헬스케어</button><button type="button" class="biz-chip" data-biz="edu">교육</button><button type="button" class="biz-chip" data-biz="retail">유통·리테일</button><button type="button" class="biz-chip" data-biz="mfg">제조·산업</button><button type="button" class="biz-chip" data-biz="estate">건축·부동산</button><button type="button" class="biz-chip" data-biz="pro">전문서비스</button><button type="button" class="biz-chip" data-biz="media">미디어·문화·엔터테인먼트</button><button type="button" class="biz-chip" data-biz="travel">여행·숙박</button><button type="button" class="biz-chip" data-biz="public">공공·비영리</button></div>
+    </div>
+    <div class="modes">
+      <button class="mode" id="modeQ">
+        <span class="icon">Q</span>
+        <h3>질문으로 찾기</h3>
+        <p>12개의 간단한 양자택일 질문에 답하면 결과가 자동으로 정해집니다. 처음이라면 이쪽을 추천해요.</p>
+        <span class="go">시작하기 →</span>
+      </button>
+      <button class="mode" id="modeS">
+        <span class="icon">≡</span>
+        <h3>직접 조절하기</h3>
+        <p>네 개의 슬라이더를 직접 움직이며 스타일이 변하는 걸 실시간으로 봅니다. 감이 있는 분께 추천해요.</p>
+        <span class="go">시작하기 →</span>
+      </button>
+    </div>
+    <p class="note">결과 화면에서 색상 조합, 추천 글꼴, 참고 이미지 가이드를 함께 확인할 수 있어요.</p>
+  </div>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <div class="wrap">
+    <div class="main">
+
+      <!-- left panel -->
+      <aside class="panel">
+        <div class="tabs">
+          <button class="tab" id="tabQ">질문으로 찾기</button>
+          <button class="tab" id="tabS">직접 조절하기</button>
+        </div>
+
+        <!-- questions -->
+        <div class="panel-body" id="qWrap">
+          <div class="progress"><i id="qBar"></i></div>
+          <div class="qno" id="qNo"></div>
+          <div class="qtext" id="qText"></div>
+          <div class="opts">
+            <button class="opt" id="optA"></button>
+            <button class="opt" id="optB"></button>
+            <button class="opt opt-skip" id="optC">둘 다 애매해요</button>
+          </div>
+          <div class="qnav">
+            <button id="qPrev">← 이전 질문</button>
+            <button id="qSkip">건너뛰고 직접 조절 →</button>
+          </div>
+        </div>
+
+        <!-- sliders -->
+        <div id="sWrap">
+          <div class="panel-body" id="axes"><div class="axis">
+      <div class="axis-head"><span class="axis-name">무게감</span><span class="axis-easy">어떤 이미지일까</span></div>
+      <div class="poles">
+        <span class="pole pl"><b>진지함</b><small>격식 · 신뢰 · 정중</small></span>
+        <span class="pole pr" style="text-align:right"><b>친근함</b><small>편안 · 유머 · 다정</small></span>
+      </div>
+      <div class="srow">
+        <input type="range" min="0" max="6" step="1" value="3" aria-label="무게감: 진지함에서 친근함" class="center">
+        <span class="strength center">미정</span>
+      </div></div><div class="axis">
+      <div class="axis-head"><span class="axis-name">에너지</span><span class="axis-easy">목소리를 얼마나 크게 낼까</span></div>
+      <div class="poles">
+        <span class="pole pl"><b>강렬함</b><small>진하게 · 눈에 띄게</small></span>
+        <span class="pole pr" style="text-align:right"><b>부드러움</b><small>은은하게 · 섬세하게</small></span>
+      </div>
+      <div class="srow">
+        <input type="range" min="0" max="6" step="1" value="3" aria-label="에너지: 강렬함에서 부드러움" class="center">
+        <span class="strength center">미정</span>
+      </div></div><div class="axis">
+      <div class="axis-head"><span class="axis-name">설득 방식</span><span class="axis-easy">마음으로 vs 근거로</span></div>
+      <div class="poles">
+        <span class="pole pl"><b>감성적</b><small>이야기 · 온기</small></span>
+        <span class="pole pr" style="text-align:right"><b>이성적</b><small>숫자 · 정확함</small></span>
+      </div>
+      <div class="srow">
+        <input type="range" min="0" max="6" step="1" value="3" aria-label="설득 방식: 감성적에서 이성적" class="center">
+        <span class="strength center">미정</span>
+      </div></div><div class="axis">
+      <div class="axis-head"><span class="axis-name">스타일</span><span class="axis-easy">어제의 멋 vs 오늘의 멋</span></div>
+      <div class="poles">
+        <span class="pole pl"><b>클래식</b><small>전통 · 손맛 · 유산</small></span>
+        <span class="pole pr" style="text-align:right"><b>모던</b><small>동시대 · 깔끔 · 기술</small></span>
+      </div>
+      <div class="srow">
+        <input type="range" min="0" max="6" step="1" value="3" aria-label="스타일: 클래식에서 모던" class="center">
+        <span class="strength center">미정</span>
+      </div></div></div>
+          <div class="panel-foot"><button class="btn-line" id="resetBtn">다시 고르기</button></div>
+        </div>
+      </aside>
+
+      <!-- result -->
+      <section id="result">
+    <div class="placeholder">
+      <div class="big">슬라이더를 움직여 스타일을 찾아보세요</div>
+      <p>네 개의 기준이 모두 한쪽으로 기울면 어울리는 스타일이 나타납니다.</p>
+      <div class="axis-chips"><span class="achip ">무게감 · 미정</span><span class="achip ">에너지 · 미정</span><span class="achip ">설득 방식 · 미정</span><span class="achip ">스타일 · 미정</span></div>
+    </div></section>
+    </div>
+  </div>
+
+  <!-- 16 map -->
+  <section id="mapSec">
+    <div class="wrap">
+      <h2>16가지 스타일 전체 보기</h2>
+      <p class="sub">카드를 누르면 해당 스타일로 바로 이동합니다.</p>
+      <div class="grid16" id="grid16"><button class="cell" data-code="GBEC" title="고급스럽고 특별한 대접을 받는 느낌"><span class="c-top"><span class="c-code">G·B·E·C</span></span>
+      <span class="c-adj">격식 있는 프리미엄</span><span class="c-meta">고급스럽고 특별한 대접을 받는 느낌</span>
+      <span class="dots"><span class="dot16" style="background:#562234"></span><span class="dot16" style="background:#8E4860"></span><span class="dot16" style="background:#A33358"></span><span class="dot16" style="background:#F5DDE5"></span></span></button><button class="cell" data-code="GBEM" title="어둡고 선명한 존재감"><span class="c-top"><span class="c-code">G·B·E·M</span></span>
+      <span class="c-adj">강렬한 하이엔드</span><span class="c-meta">어둡고 선명한 존재감</span>
+      <span class="dots"><span class="dot16" style="background:#141313"></span><span class="dot16" style="background:#262224"></span><span class="dot16" style="background:#380B1A"></span><span class="dot16" style="background:#B8ADB0"></span></span></button><button class="cell" data-code="GBRC" title="안정감과 신뢰가 필요한 브랜드"><span class="c-top"><span class="c-code">G·B·R·C</span></span>
+      <span class="c-adj">믿음직한 전문성</span><span class="c-meta">안정감과 신뢰가 필요한 브랜드</span>
+      <span class="dots"><span class="dot16" style="background:#253143"></span><span class="dot16" style="background:#4E617B"></span><span class="dot16" style="background:#5276A9"></span><span class="dot16" style="background:#E3EBF5"></span></span></button><button class="cell" data-code="GBRM" title="체계적이고 현대적인 비즈니스 인상"><span class="c-top"><span class="c-code">G·B·R·M</span></span>
+      <span class="c-adj">스마트한 기업감</span><span class="c-meta">체계적이고 현대적인 비즈니스 인상</span>
+      <span class="dots"><span class="dot16" style="background:#F0F4FA"></span><span class="dot16" style="background:#DAE1EB"></span><span class="dot16" style="background:#325D99"></span><span class="dot16" style="background:#8E959E"></span></span></button><button class="cell" data-code="GSEC" title="조용하고 경건한 무드"><span class="c-top"><span class="c-code">G·S·E·C</span></span>
+      <span class="c-adj">차분한 깊이감</span><span class="c-meta">조용하고 경건한 무드</span>
+      <span class="dots"><span class="dot16" style="background:#59534A"></span><span class="dot16" style="background:#91897C"></span><span class="dot16" style="background:#BFAF99"></span><span class="dot16" style="background:#F5F2EE"></span></span></button><button class="cell" data-code="GSEM" title="안정적이고 부드러운 휴식감"><span class="c-top"><span class="c-code">G·S·E·M</span></span>
+      <span class="c-adj">정갈한 편안함</span><span class="c-meta">안정적이고 부드러운 휴식감</span>
+      <span class="dots"><span class="dot16" style="background:#98BF94"></span><span class="dot16" style="background:#A0C9AF"></span><span class="dot16" style="background:#A3B58E"></span><span class="dot16" style="background:#F0F7EF"></span></span></button><button class="cell" data-code="GSRC" title="깊이 있고 신뢰감 있는 구성"><span class="c-top"><span class="c-code">G·S·R·C</span></span>
+      <span class="c-adj">지적인 단정함</span><span class="c-meta">깊이 있고 신뢰감 있는 구성</span>
+      <span class="dots"><span class="dot16" style="background:#5C7099"></span><span class="dot16" style="background:#8A6558"></span><span class="dot16" style="background:#6A85BD"></span><span class="dot16" style="background:#F0E6CE"></span></span></button><button class="cell" data-code="GSRM" title="위생적이고 정밀한 인상"><span class="c-top"><span class="c-code">G·S·R·M</span></span>
+      <span class="c-adj">깨끗한 정확성</span><span class="c-meta">위생적이고 정밀한 인상</span>
+      <span class="dots"><span class="dot16" style="background:#F0F9FA"></span><span class="dot16" style="background:#DAE9EB"></span><span class="dot16" style="background:#6AE1EC"></span><span class="dot16" style="background:#BCCFD1"></span></span></button><button class="cell" data-code="LBEC" title="친근하고 유쾌한 에너지"><span class="c-top"><span class="c-code">L·B·E·C</span></span>
+      <span class="c-adj">정겨운 활기</span><span class="c-meta">친근하고 유쾌한 에너지</span>
+      <span class="dots"><span class="dot16" style="background:#A6703A"></span><span class="dot16" style="background:#3E9679"></span><span class="dot16" style="background:#C98139"></span><span class="dot16" style="background:#F0E6CE"></span></span></button><button class="cell" data-code="LBEM" title="자유롭고 젊은 감각"><span class="c-top"><span class="c-code">L·B·E·M</span></span>
+      <span class="c-adj">톡톡 튀는 개성</span><span class="c-meta">자유롭고 젊은 감각</span>
+      <span class="dots"><span class="dot16" style="background:#F7FAF0"></span><span class="dot16" style="background:#E5EBDA"></span><span class="dot16" style="background:#8CC619"></span><span class="dot16" style="background:#999E8E"></span></span></button><button class="cell" data-code="LBRC" title="팀 컬러와 소속감이 강한 인상"><span class="c-top"><span class="c-code">L·B·R·C</span></span>
+      <span class="c-adj">당당한 활동감</span><span class="c-meta">팀 컬러와 소속감이 강한 인상</span>
+      <span class="dots"><span class="dot16" style="background:#25863D"></span><span class="dot16" style="background:#776629"></span><span class="dot16" style="background:#22AA44"></span><span class="dot16" style="background:#F0E6CE"></span></span></button><button class="cell" data-code="LBRM" title="명확하고 역동적인 서비스 인상"><span class="c-top"><span class="c-code">L·B·R·M</span></span>
+      <span class="c-adj">빠른 추진력</span><span class="c-meta">명확하고 역동적인 서비스 인상</span>
+      <span class="dots"><span class="dot16" style="background:#FAF4F0"></span><span class="dot16" style="background:#EBE0DA"></span><span class="dot16" style="background:#CF5F1F"></span><span class="dot16" style="background:#9E948E"></span></span></button><button class="cell" data-code="LSEC" title="작고 따뜻한 정성의 느낌"><span class="c-top"><span class="c-code">L·S·E·C</span></span>
+      <span class="c-adj">다정한 손맛</span><span class="c-meta">작고 따뜻한 정성의 느낌</span>
+      <span class="dots"><span class="dot16" style="background:#D6AB96"></span><span class="dot16" style="background:#E0D3A2"></span><span class="dot16" style="background:#CC9198"></span><span class="dot16" style="background:#F7F0EC"></span></span></button><button class="cell" data-code="LSEM" title="밝고 부드러운 호감형 인상"><span class="c-top"><span class="c-code">L·S·E·M</span></span>
+      <span class="c-adj">산뜻한 사랑스러움</span><span class="c-meta">밝고 부드러운 호감형 인상</span>
+      <span class="dots"><span class="dot16" style="background:#B386DF"></span><span class="dot16" style="background:#E593E9"></span><span class="dot16" style="background:#8783D5"></span><span class="dot16" style="background:#F0E9F7"></span></span></button><button class="cell" data-code="LSRC" title="세련되고 여백 있는 감각"><span class="c-top"><span class="c-code">L·S·R·C</span></span>
+      <span class="c-adj">담백한 안목</span><span class="c-meta">세련되고 여백 있는 감각</span>
+      <span class="dots"><span class="dot16" style="background:#FAF4F0"></span><span class="dot16" style="background:#EBE0DA"></span><span class="dot16" style="background:#CC8052"></span><span class="dot16" style="background:#9E948E"></span></span></button><button class="cell" data-code="LSRM" title="명확하고 편리한 도구 같은 인상"><span class="c-top"><span class="c-code">L·S·R·M</span></span>
+      <span class="c-adj">실용적인 깔끔함</span><span class="c-meta">명확하고 편리한 도구 같은 인상</span>
+      <span class="dots"><span class="dot16" style="background:#F0F4FA"></span><span class="dot16" style="background:#DAE0EB"></span><span class="dot16" style="background:#4581E6"></span><span class="dot16" style="background:#B3BAC7"></span></span></button></div>
+    </div>
+  </section>
+</div>
+
+<section id="adminSec" class="hidden">
+  <div class="wrap">
+    <div class="ad-head">
+      <div><h2>관리자</h2><p>브랜드 스타일 매트릭스 16의 글꼴 자산과 색상 기준을 관리합니다. 수정 후 <b>「데이터 파일 내보내기」</b>로 받은 <code>bsm-data.js</code>를 서버의 <code>assets/data/</code>에 덮어쓰거나, <b>「웹 업로드용 폴더로 내보내기」</b>로 받은 zip을 깃허브 등에 그대로 올리면 반영됩니다.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="chip-btn solid dirty" id="adSaveBtn" onclick="exportDataFile()">● 데이터 파일 내보내기</button><button class="chip-btn" id="adZipBtn" onclick="exportSiteZip()" title="index.html + assets 폴더 전체를 zip으로 — 깃허브 등에 바로 올릴 수 있어요">⇩ 웹 업로드용 폴더로 내보내기 (.zip)</button><button class="chip-btn" onclick="$('adImport').click()" title="내려받은 bsm-data.js를 되돌려 넣기">데이터 불러오기</button><input type="file" id="adImport" accept=".js,.json,application/json,text/javascript" hidden onchange="importDataFile(this)">
+        <button class="chip-btn" onclick="adminClose()">창 닫기</button>
+      </div>
+    </div>
+    <div class="ad-tabs">
+      <button class="ad-tab active" data-tab="fonts" onclick="setAdminTab('fonts')">폰트 리스트 <em id="tabCntFonts">561 · 오류 105</em></button>
+      <button class="ad-tab" data-tab="classify" onclick="setAdminTab('classify')">폰트 분류 <em id="tabCntCls">미완 105</em></button>
+      <button class="ad-tab" data-tab="algorithm" onclick="setAdminTab('algorithm')">알고리즘 <em id="tabCntAlgo">135</em></button>
+      <button class="ad-tab" data-tab="color" onclick="setAdminTab('color')">색상 가이드라인</button>
+      <button class="ad-tab" data-tab="image" onclick="setAdminTab('image')">참고 이미지</button>
+      <button class="ad-tab" data-tab="mockup" onclick="setAdminTab('mockup')">업종 목업</button>
+    </div>
+
+    <!-- 폰트 리스트 -->
+    <div id="panelMockup" class="ad-panel hidden">
+      <div class="ad-row" style="grid-template-columns:230px 1fr;align-items:stretch">
+        <div>
+          <div class="ad-prev-label">목업 이미지 라이브러리</div>
+          <div id="amList" style="display:flex;flex-direction:column;gap:6px;margin-top:6px;max-height:420px;overflow-y:auto"></div>
+          <button class="chip-btn solid" style="width:100%;margin-top:10px" onclick="amNew()">＋ 이미지 추가</button>
+          <p style="font-size:11px;color:var(--ink2);line-height:1.55;margin-top:10px"><b>레이어 목업</b>을 쓰면 포토샵에서 만든 투명 PNG를 최대 3장까지 겹쳐 그림자·광택을 살릴 수 있어요 (모든 레이어는 같은 픽셀 크기로 준비).<br>이미지 하나를 여러 업종에 체크해 한 번에 적용할 수 있어요. 업종당 최대 <b>3개</b>까지 결과 화면에 표시됩니다.<br>저장 후 상단 <b>「데이터 파일 내보내기」</b>로 받은 파일을 서버에 올려야 영구 반영됩니다.</p>
+        </div>
+        <div id="amEditor">
+          <div class="ad-row2" style="align-items:end">
+            <div><label class="af-l">이미지 이름</label><input id="amName" class="af-in" placeholder="예: 쇼핑백 정면"></div>
+            <div style="display:flex;gap:6px">
+              <input type="file" id="amFile" accept="image/*" style="display:none" onchange="amFilePick(this)">
+              <input type="file" id="amLayerFile" accept="image/png,image/webp,image/*" style="display:none" onchange="amLayerFilePick(this)">
+              <button class="chip-btn" style="flex:1" onclick="$('amFile').click()">파일 업로드</button>
+              <button class="chip-btn" style="flex:1" onclick="amUrlAsk()">URL 입력</button>
+            </div>
+          </div>
+          <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:12px;background:#fff">
+            <canvas id="amCanvas" width="1000" height="750"></canvas>
+          </div>
+          <div class="am-sliders">
+            <div class="am-sl"><b>가로 위치</b><input type="range" id="amX" min="0" max="90" value="34" oninput="amDraw()"></div>
+            <div class="am-sl"><b>세로 위치</b><input type="range" id="amY" min="0" max="90" value="44" oninput="amDraw()"></div>
+            <div class="am-sl"><b>너비</b><input type="range" id="amW" min="10" max="90" value="32" oninput="amDraw()"></div>
+            <div class="am-sl"><b>높이</b><input type="range" id="amH" min="5" max="60" value="13" oninput="amDraw()"></div>
+            <div class="am-sl"><b>텍스트 정렬</b><select id="amAlign" class="af-in" style="flex:1" onchange="amDraw()">
+              <option value="center">중앙 정렬</option>
+              <option value="left">좌측 정렬</option>
+              <option value="right">우측 정렬</option></select></div>
+            <p style="font-size:10.5px;color:var(--ink3);line-height:1.5;margin:-2px 0 2px">긴 이름은 로고 박스 폭에 맞춰 자동으로 줄어들기 때문에, 정렬은 이름이 박스보다 짧을 때 눈에 보입니다.</p>
+            <div class="am-warp-box" id="amWarpBox">
+              <div class="am-warp-title">🧊 표면 형태 <span>평면이 아닌 곡면·기울어진 면에도 로고를 자연스럽게 입힙니다</span></div>
+              <div class="am-sl"><b>표면 형태</b><select id="amWarpMode" class="af-in am-sel" onchange="amWarpToggle()">
+                <option value="flat">평면 — 정면에서 본 반듯한 면</option>
+                <option value="tilt">기울기·원근 — 비스듬한 벽·간판·상자</option>
+                <option value="cyl">원통·곡면 — 캔·컵·병·기둥</option>
+              </select></div>
+              <div id="amWarpTilt" class="hidden am-warp-sub">
+                <div class="am-sl"><b>좌우 회전</b><input type="range" id="amYaw" min="-60" max="60" value="0" oninput="amDraw()"></div>
+                <div class="am-sl"><b>상하 회전</b><input type="range" id="amPitch" min="-60" max="60" value="0" oninput="amDraw()"></div>
+                <div class="am-sl"><b>기울임</b><input type="range" id="amRoll" min="-45" max="45" value="0" oninput="amDraw()"></div>
+                <p style="font-size:10.5px;color:var(--ink3);line-height:1.5;margin:-2px 0 2px">사진 속 면이 향한 방향에 맞춰 돌립니다. 초록 점선 테두리가 그 면과 겹치면 맞은 것입니다.</p>
+              </div>
+              <div id="amWarpCyl" class="hidden am-warp-sub">
+                <div class="am-sl"><b>곡률</b><input type="range" id="amCurve" min="0" max="100" value="45" oninput="amDraw()"></div>
+                <div class="am-sl"><b>상하 휨</b><input type="range" id="amBow" min="-40" max="40" value="0" oninput="amDraw()"></div>
+                <div class="am-sl"><b>음영</b><input type="range" id="amShade" min="0" max="80" value="35" oninput="amDraw()"></div>
+                <div class="am-sl"><b>기울임</b><input type="range" id="amRoll2" min="-45" max="45" value="0" oninput="amRollSync(this)"></div>
+                <p style="font-size:10.5px;color:var(--ink3);line-height:1.5;margin:-2px 0 2px">곡률은 통을 몇 도나 감싸는지, 상하 휨은 위에서 내려다본 정도, 음영은 옆면이 어두워지는 정도입니다.</p>
+              </div>
+            </div>
+            <div class="am-sl"><b>글자색</b><select id="amInkRole" class="af-in am-sel" onchange="amDraw()">
+              <option value="auto">자동 · 배경과 대비되게 (권장)</option>
+              <option value="0">주조색</option>
+              <option value="1">보조색</option>
+              <option value="2">포인트</option>
+              <option value="3">바탕색</option>
+              <option value="4">글자색</option>
+            </select></div>
+            <p style="font-size:10.5px;color:var(--ink3);line-height:1.5;margin:-2px 0 2px">「자동」은 제품 표면 밝기를 계산해 흰색·먹색을 고릅니다. 팔레트 색을 직접 고르면 배경과 너무 비슷할 때 자동으로 대비색으로 바뀝니다.</p>
+            <label class="am-paper-chk"><input type="checkbox" id="amIsPaper" onchange="amPaperToggle()"><b>종이류(흰색·밝은 배경) 목업</b><span>체크하면 이 목업은 항상 흰 배경 기준으로 어두운 글자색을 사용합니다 — 자동 감지가 실패해 흰 바탕에 흰 글자가 얹히는 사고를 막습니다</span></label>
+            <div class="am-sl"><b>합성 방식</b><select id="amBlend" class="af-in am-sel" onchange="amDraw()">
+              <option value="multiply">multiply — 밝은 배경 · 어두운 로고</option>
+              <option value="screen">screen — 어두운 배경 · 밝은 로고</option>
+              <option value="normal">normal — 그대로 얹기</option></select></div>
+          </div>
+          <div class="am-layer-box" id="amLayerBox">
+            <label class="am-chk"><input type="checkbox" id="amLayerMode" onchange="amLayerToggle()"><b>레이어 목업</b><span>배경색(자동) → 레이어 1·2·3 → 로고 순으로 합성 · 투명 PNG 최대 3장</span></label>
+            <div class="am-layer-opts" id="amLayerOpts">
+              <div class="am-layer-slots" id="amLayerSlots"></div>
+              <div class="am-layer-bg">
+                <b>배경색 톤</b>
+                <select id="amBgRole" class="af-in am-sel" onchange="amDraw()">
+                  <option value="0">주조색 · 가장 많이 쓰는 색</option>
+                  <option value="1">보조색 · 곁들이는 색</option>
+                  <option value="2">포인트 · 눈길 끄는 색</option>
+                  <option value="3">바탕색 · 배경</option>
+                  <option value="4">글자색 · 텍스트</option>
+                </select>
+              </div>
+              <div class="am-layer-bg">
+                <b>배경색</b>
+                <span class="am-layer-auto" id="amBgAutoTag">사용자 결과 화면의 브랜드 팔레트가 자동 적용</span>
+                <label class="am-chk" style="flex:none"><input type="checkbox" id="amBgLock" onchange="amBgLockToggle()"><b>배경색 잠금</b></label>
+                <input type="color" id="amBgColor" value="#12B97E" oninput="amDraw()" title="잠금 시 이 색으로 고정 · 잠금 해제 시에는 미리보기용" style="width:44px;height:30px;padding:2px;border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer">
+              </div>
+              <p class="am-layer-note" style="margin-top:4px">제품 표면색으로 팔레트 5색 중 어떤 톤을 쓸지 고릅니다. 흰 봉투·종이처럼 밝아야 하는 목업은 <b>바탕색</b>을, 강조 패키지는 <b>포인트</b>를 고르면 자연스럽습니다.</p>
+              <p class="am-layer-note"><b>레이어 준비 방법</b> · 포토샵에서 <b>제품 표면만 투명</b>하게 지우고 배경 벽·바닥·그림자는 불투명하게 남기세요. 투명한 곳으로 배경색이 비칩니다. 그림자·광택은 별도 레이어로 올리고 <b>「로고 위」</b>를 켜면 로고 위에 얹혀 훨씬 자연스러워집니다. 모든 레이어는 같은 픽셀 크기로 준비해 주세요.<br><br><b>배경색</b>은 고정값이 아니라 사용자 결과 화면의 팔레트를 따라갑니다 — 위에서 고른 <b>배경색 톤</b>에 해당하는 색이 자동 적용됩니다. 금속·목재처럼 색이 고정돼야 하는 이미지만 <b>배경색 잠금</b>을 켜고 색을 지정하세요. 잠금이 꺼져 있을 때의 색 선택은 미리보기 확인용입니다.</p>
+            </div>
+          </div>
+          <div class="ad-prev-label" style="margin-top:14px">표시할 업종 <span style="font-weight:500;color:var(--ink3)">· 여러 개 체크 가능 · 개수 제한 없음 · 옆 숫자는 그 업종에 등록된 목업 수</span></div>
+          <div id="amBizChecks" class="am-bizgrid"></div>
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <button class="chip-btn solid" style="flex:1" onclick="amSave()">이 이미지 저장</button>
+            <button class="ad-mini danger" id="amDelete" onclick="amDelete()">삭제</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 폰트 리스트 -->
+    <div id="panelFonts" class="ad-panel">
+      <div class="ad-bar">
+        <input id="fSearch" class="ad-search" placeholder="폰트 이름 검색…" oninput="renderFontList()">
+        <select id="fFilterStyle" onchange="renderFontList()"><option value="">전체 16유형</option><option value="GBEC">격식 있는 프리미엄 (GBEC)</option><option value="GBEM">강렬한 하이엔드 (GBEM)</option><option value="GBRC">믿음직한 전문성 (GBRC)</option><option value="GBRM">스마트한 기업감 (GBRM)</option><option value="GSEC">차분한 깊이감 (GSEC)</option><option value="GSEM">정갈한 편안함 (GSEM)</option><option value="GSRC">지적인 단정함 (GSRC)</option><option value="GSRM">깨끗한 정확성 (GSRM)</option><option value="LBEC">정겨운 활기 (LBEC)</option><option value="LBEM">톡톡 튀는 개성 (LBEM)</option><option value="LBRC">당당한 활동감 (LBRC)</option><option value="LBRM">빠른 추진력 (LBRM)</option><option value="LSEC">다정한 손맛 (LSEC)</option><option value="LSEM">산뜻한 사랑스러움 (LSEM)</option><option value="LSRC">담백한 안목 (LSRC)</option><option value="LSRM">실용적인 깔끔함 (LSRM)</option></select>
+        <select id="fFilterType" onchange="renderFontList()"><option value="">전체 형태</option><option>고딕</option><option>바탕</option><option>손글씨</option><option>장식체</option><option>픽셀체</option><option>고전체</option><option>탈네모</option><option>캘리폰트</option><option>코딩체</option><option>영문</option></select>
+        <select id="fFilterMood" onchange="renderFontList()"><option value="">전체 인상</option><option>진지한</option><option>부드러운</option><option>중립(본문)</option><option>귀여운</option><option>강한</option></select>
+        <select id="fFilterWeight" onchange="renderFontList()"><option value="">전체 웨이트</option><option>얇은</option><option>보통</option><option>두꺼운</option></select>
+        <select id="fFilterState" onchange="renderFontList()">
+          <option value="">전체 상태</option>
+          <option value="err">웹폰트 오류만</option>
+          <option value="notag">16유형 미지정</option>
+          <option value="nomood">인상 미지정</option>
+          <option value="hold">분류 보류</option>
+          <option value="hide">검색 제외</option>
+        </select>
+        <button class="chip-btn" onclick="checkAllWebfonts()">전체 로드 검사</button>
+        <button class="chip-btn" onclick="exportFontListCsv()" title="현재 목록을 CSV로 내려받기">⇩ CSV 내보내기</button>
+        <button class="chip-btn solid" onclick="openAddFont()">＋ 폰트 추가</button>
+      </div>
+      <div class="fl-report" id="flReport"></div>
+      <div class="ad-legend">
+        <span><i class="fl-dot err"></i>웹폰트 오류</span><span><i class="fl-dot warn"></i>분류 미완</span>
+        <span><i class="fl-dot ok"></i>정상</span><span class="ad-legend-tip">행의 상태 배지를 클릭하면 바로 플래그를 켜고 끌 수 있어요</span>
+      </div>
+      <div id="fontListRows" class="fl-rows"></div>
+      <div id="flSentinel" style="height:1px"></div>
+      <div class="ad-more" id="flLoading" style="font-size: 11.5px; color: var(--ink3); font-weight: 700; display: none;">불러오는 중…</div>
+    </div>
+
+    <!-- 폰트 분류 -->
+    <div id="panelClassify" class="ad-panel hidden">
+      <div class="ad-bar">
+        <span class="ad-stat" id="clsStat">1 / 561 · 미완료 105종</span>
+        <button class="chip-btn" onclick="clsPrev()">‹ 이전</button>
+        <button class="chip-btn" onclick="clsNext()">다음 ›</button>
+        <label class="ad-check"><input type="checkbox" id="clsOnlyTodo" checked="" onchange="clsJumpTodo()"> 미완료만 순회</label>
+      </div>
+      <div id="clsCard">
+  <div class="cls-card">
+    <div class="cls-name">MBC1961<span class="fl-badge ok">정상</span>
+      <button class="fl-flag" style="width:auto;margin-left:auto" data-flag="wfError"><span class="sw"></span>웹폰트 오류</button></div>
+    <div class="cls-sample-wrap">
+      <div class="cls-big" id="clsBig" style="font-family:'Mbc1961';font-weight:400" title="클릭하면 문구를 바꿀 수 있어요">아름다운 테크놀로지 다람쥐 헌 쳇바퀴에 타고파</div>
+      <div class="cls-lines" id="clsLines" style="font-family:'Mbc1961';font-weight:400" title="클릭하면 문구를 바꿀 수 있어요">브랜드의 첫인상은 글자에서 시작됩니다<br>ABCDEFG abcdefg 0123456789</div>
+      <button class="cls-edit-btn" id="clsEditBtn">✎ 문구 수정</button>
+      <div class="cls-edit hidden" id="clsEdit">
+        <label>큰 문구</label><input id="clsBigIn" value="아름다운 테크놀로지 다람쥐 헌 쳇바퀴에 타고파" maxlength="40">
+        <label>작은 문구 <span class="ad-optional">줄바꿈 가능</span></label><textarea id="clsLinesIn" rows="2">브랜드의 첫인상은 글자에서 시작됩니다
+ABCDEFG abcdefg 0123456789</textarea>
+        <div class="cls-edit-acts">
+          <button class="ad-mini" id="clsSampleReset">초기화</button>
+          <button class="ad-apply" id="clsSampleSave" style="width:auto;padding:8px 18px;margin:0">저장</button>
+        </div>
+      </div>
+    </div>
+    <div class="cls-axes">
+      <div class="cls-ax"><label>형태 (계열)</label><div class="cls-opts"><button class="cls-opt on" data-ax="type" data-v="고딕">고딕</button><button class="cls-opt" data-ax="type" data-v="바탕">바탕</button><button class="cls-opt" data-ax="type" data-v="손글씨">손글씨</button><button class="cls-opt" data-ax="type" data-v="장식체">장식체</button><button class="cls-opt" data-ax="type" data-v="픽셀체">픽셀체</button><button class="cls-opt" data-ax="type" data-v="고전체">고전체</button><button class="cls-opt" data-ax="type" data-v="탈네모">탈네모</button><button class="cls-opt" data-ax="type" data-v="캘리폰트">캘리폰트</button><button class="cls-opt" data-ax="type" data-v="코딩체">코딩체</button><button class="cls-opt" data-ax="type" data-v="영문">영문</button></div></div>
+      <div class="cls-ax"><label>인상 (최대 2개) <span class="ad-optional">부드러운↔강한 · 진지한↔귀여운 동시 선택 불가</span></label><div class="cls-opts"><button class="cls-opt blocked" data-ax="mood" data-v="진지한" title="'귀여운'과 함께 고를 수 없어요">진지한</button><button class="cls-opt blocked" data-ax="mood" data-v="부드러운" title="'강한'과 함께 고를 수 없어요">부드러운</button><button class="cls-opt" data-ax="mood" data-v="중립(본문)">중립(본문)</button><button class="cls-opt on" data-ax="mood" data-v="귀여운">귀여운</button><button class="cls-opt on" data-ax="mood" data-v="강한">강한</button></div></div>
+      <div class="cls-ax"><label>웨이트</label><div class="cls-opts"><button class="cls-opt" data-ax="weight" data-v="얇은">얇은</button><button class="cls-opt" data-ax="weight" data-v="보통">보통</button><button class="cls-opt on" data-ax="weight" data-v="두꺼운">두꺼운</button></div></div>
+    </div>
+    <div class="cls-codes">
+      <span style="font-size:10.5px;font-weight:800;color:var(--ink3);align-self:center;margin-right:4px">어울리는 16유형 <em style="font-style:normal;font-weight:500">알고리즘 자동</em></span>
+      <span class="cls-algo-key">고딕 · 귀여운+강한 · 두꺼운</span>
+      <span class="cls-code auto off" title="GBEC · 적합도 37점">격식 있는 프리미엄<em>37</em></span><span class="cls-code auto off" title="GBEM · 적합도 66점">강렬한 하이엔드<em>66</em></span><span class="cls-code auto off" title="GBRC · 적합도 33점">믿음직한 전문성<em>33</em></span><span class="cls-code auto off" title="GBRM · 적합도 62점">스마트한 기업감<em>62</em></span><span class="cls-code auto off" title="GSEC · 적합도 20점">차분한 깊이감<em>20</em></span><span class="cls-code auto off" title="GSEM · 적합도 50점">정갈한 편안함<em>50</em></span><span class="cls-code auto off" title="GSRC · 적합도 17점">지적인 단정함<em>17</em></span><span class="cls-code auto off" title="GSRM · 적합도 44점">깨끗한 정확성<em>44</em></span><span class="cls-code auto on" title="LBEC · 적합도 62점">정겨운 활기<em>62</em></span><span class="cls-code auto on" title="LBEM · 적합도 92점">톡톡 튀는 개성<em>92</em></span><span class="cls-code auto on sub" title="LBRC · 두 번째 인상에서 온 보조 유형(추천 후순위) · 적합도 61점">당당한 활동감<em>61</em></span><span class="cls-code auto on" title="LBRM · 적합도 88점">빠른 추진력<em>88</em></span><span class="cls-code auto off" title="LSEC · 적합도 44점">다정한 손맛<em>44</em></span><span class="cls-code auto off" title="LSEM · 적합도 75점">산뜻한 사랑스러움<em>75</em></span><span class="cls-code auto off" title="LSRC · 적합도 44점">담백한 안목<em>44</em></span><span class="cls-code auto off" title="LSRM · 적합도 70점">실용적인 깔끔함<em>70</em></span>
+    </div>
+    <div class="cls-foot">
+      <label class="ad-check"><input type="checkbox" id="clsHoldChk"> 분류 보류 (판단이 어려운 폰트)</label>
+      <div style="display:flex;gap:8px">
+        <button class="chip-btn" id="clsOpenEdit">✎ 폰트 편집</button>
+        <button class="chip-btn" id="clsGoAlgo">알고리즘 조건 보기</button>
+        <button class="chip-btn solid" onclick="clsNext()">저장하고 다음 ›</button>
+      </div>
+    </div>
+  </div></div>
+    </div>
+
+    <!-- 알고리즘 -->
+    <div id="panelAlgorithm" class="ad-panel hidden">
+      <div class="ad-bar">
+        <select id="algoType" onchange="renderAlgo()"><option>고딕</option><option>바탕</option><option>손글씨</option><option>장식체</option><option>픽셀체</option><option>고전체</option><option>탈네모</option><option>캘리폰트</option><option>코딩체</option><option>영문</option></select>
+        <span class="ad-stat" id="algoStat">장식체 · 15개 조합</span>
+        <span class="ad-legend-tip">형태 · 인상 · 웨이트 조합마다 어울리는 16유형을 지정합니다 (분류 알고리즘 v1 · 150조합). 「근거 ⓘ」에 마우스를 올리면 선정 이유가 표시됩니다.</span>
+      </div>
+      <div id="algoRows"></div>
+    </div>
+
+    <!-- 참고 이미지 -->
+    <div id="panelImage" class="ad-panel hidden">
+      <div class="ad-bar">스타일 선택
+        <select id="imgStyleSel" onchange="renderAdminImage()"><option value="GBEC">격식 있는 프리미엄 (GBEC)</option><option value="GBEM">강렬한 하이엔드 (GBEM)</option><option value="GBRC">믿음직한 전문성 (GBRC)</option><option value="GBRM">스마트한 기업감 (GBRM)</option><option value="GSEC">차분한 깊이감 (GSEC)</option><option value="GSEM">정갈한 편안함 (GSEM)</option><option value="GSRC">지적인 단정함 (GSRC)</option><option value="GSRM">깨끗한 정확성 (GSRM)</option><option value="LBEC">정겨운 활기 (LBEC)</option><option value="LBEM">톡톡 튀는 개성 (LBEM)</option><option value="LBRC">당당한 활동감 (LBRC)</option><option value="LBRM">빠른 추진력 (LBRM)</option><option value="LSEC">다정한 손맛 (LSEC)</option><option value="LSEM">산뜻한 사랑스러움 (LSEM)</option><option value="LSRC">담백한 안목 (LSRC)</option><option value="LSRM">실용적인 깔끔함 (LSRM)</option></select>
+        <span class="ad-stat" id="imgStat">격식 있는 프리미엄 · 키워드 3개 · 예시 이미지 3/3</span>
+      </div>
+      <div id="adminImagePane">
+    <div class="ad-img-grid">
+      <div class="ad-color-form">
+        <label>가이드 문장 <span class="ad-optional">고객에게 보여줄 안내</span></label>
+        <textarea data-ik="guide" rows="3">짙은 배경에 금속 광택이 살짝 도는 사진, 벨벳 · 대리석 같은 고급 질감, 조명이 어두운 공간 사진을 찾아보세요.</textarea>
+        <label style="margin-top:12px">검색 키워드 <span class="ad-optional">한글 표기 / 검색어(영문) 쌍</span></label>
+        <div id="imgKws">
+          <div class="ad-kw-row" data-i="0">
+            <input value="벨벳 질감" data-kk="ko" placeholder="화면에 보일 이름">
+            <input value="dark velvet texture" data-kk="en" placeholder="검색어 (영문 권장)">
+            <button class="ad-mini danger" data-kdel="">삭제</button>
+          </div>
+          <div class="ad-kw-row" data-i="1">
+            <input value="샴페인 골드" data-kk="ko" placeholder="화면에 보일 이름">
+            <input value="champagne gold luxury" data-kk="en" placeholder="검색어 (영문 권장)">
+            <button class="ad-mini danger" data-kdel="">삭제</button>
+          </div>
+          <div class="ad-kw-row" data-i="2">
+            <input value="오페라 극장" data-kk="ko" placeholder="화면에 보일 이름">
+            <input value="opera house interior" data-kk="en" placeholder="검색어 (영문 권장)">
+            <button class="ad-mini danger" data-kdel="">삭제</button>
+          </div></div>
+        <button class="ad-mini" id="imgKwAdd" style="margin-top:6px">＋ 키워드 추가</button>
+        <button class="ad-apply" id="imgApply" style="margin-top:14px">이 스타일에 적용</button>
+      </div>
+      <div class="ad-color-preview">
+        <div class="ad-prev-label">예시 이미지 3종 <span style="font-weight:500;color:var(--ink3)">· 결과 화면 앞 세 칸에 표시</span></div>
+        <div class="ad-samp-list">
+          <div class="ad-samp" data-si="0">
+            <div class="ad-samp-thumb filled">
+              <img src="https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=800&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dmVsdmV0JTIwdGV4dHVyZXxlbnwwfHwwfHx8MA%3D%3D" alt="예시 1" onerror="this.style.display='none'" style="display: none;">
+            </div>
+            <div class="ad-samp-fields">
+              <input data-sk="url" value="https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=800&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dmVsdmV0JTIwdGV4dHVyZXxlbnwwfHwwfHx8MA%3D%3D" placeholder="이미지 주소 (https://…)">
+              <input data-sk="src" value="https://unsplash.com/ko/%EC%82%AC%EC%A7%84/%EB%B9%A8%EA%B0%84-%EC%A7%81%EB%AC%BC-HyBXy5PHQR8" placeholder="출처 페이지 링크 (누르면 이동)">
+              <input data-sk="credit" value="Unsplash" placeholder="출처 표기 (예: Unsplash · 작가명)">
+            </div>
+            <button class="ad-mini danger" data-sclear="0">비우기</button>
+          </div>
+          <div class="ad-samp" data-si="1">
+            <div class="ad-samp-thumb filled">
+              <img src="https://images.unsplash.com/photo-1580657274234-7339717f4541?w=800&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hhbXBhZ25lfGVufDB8fDB8fHww" alt="예시 2" onerror="this.style.display='none'" style="display: none;">
+            </div>
+            <div class="ad-samp-fields">
+              <input data-sk="url" value="https://images.unsplash.com/photo-1580657274234-7339717f4541?w=800&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hhbXBhZ25lfGVufDB8fDB8fHww" placeholder="이미지 주소 (https://…)">
+              <input data-sk="src" value="https://unsplash.com/ko/%EC%82%AC%EC%A7%84/%EA%B0%88%EC%83%89-%EC%95%A1%EC%B2%B4%EB%A5%BC-%EA%B0%80%EC%A7%84-%EB%AA%85%ED%99%95%ED%95%9C-%EB%A7%88%EC%8B%9C%EB%8A%94-%EC%9C%A0%EB%A6%AC-xzKtOI1Cnxo" placeholder="출처 페이지 링크 (누르면 이동)">
+              <input data-sk="credit" value="Unsplash" placeholder="출처 표기 (예: Unsplash · 작가명)">
+            </div>
+            <button class="ad-mini danger" data-sclear="1">비우기</button>
+          </div>
+          <div class="ad-samp" data-si="2">
+            <div class="ad-samp-thumb filled">
+              <img src="https://images.unsplash.com/photo-1607998803461-4e9aef3be418?w=800&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b3BlcmF8ZW58MHx8MHx8fDA%3D" alt="예시 3" onerror="this.style.display='none'" style="display: none;">
+            </div>
+            <div class="ad-samp-fields">
+              <input data-sk="url" value="https://images.unsplash.com/photo-1607998803461-4e9aef3be418?w=800&amp;auto=format&amp;fit=crop&amp;q=60&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b3BlcmF8ZW58MHx8MHx8fDA%3D" placeholder="이미지 주소 (https://…)">
+              <input data-sk="src" value="https://unsplash.com/ko/%EC%82%AC%EC%A7%84/%EB%B9%A8%EA%B0%84%EC%83%89%EA%B3%BC-%EA%B8%88%EC%83%89-%EA%B7%B9%EC%9E%A5-%EC%A2%8C%EC%84%9D-eH-IOSeI0Yk" placeholder="출처 페이지 링크 (누르면 이동)">
+              <input data-sk="credit" value="Unsplash" placeholder="출처 표기 (예: Unsplash · 작가명)">
+            </div>
+            <button class="ad-mini danger" data-sclear="2">비우기</button>
+          </div></div>
+        <p style="font-size:11px;color:var(--ink2);line-height:1.6;margin-top:10px">
+          이미지는 <b>주소(URL)</b>로 등록합니다. 저작권 확인이 끝난 이미지의 주소와 출처 페이지를 함께 넣어 주세요.
+          입력 후 아래 <b>「예시 이미지 저장」</b> → 상단 <b>「데이터 파일 내보내기」</b>를 누르면 영구 반영됩니다.</p>
+        <button class="ad-apply" id="sampApply" style="margin-top:10px">예시 이미지 저장</button>
+        <div class="ad-prev-label" style="margin-top:18px">사용자 업로드 칸 <span style="font-weight:500;color:var(--ink3)">· 결과 화면 마지막 칸</span></div>
+        <p style="font-size:11px;color:var(--ink2);line-height:1.6">고객이 직접 이미지를 올려 비교하는 자리입니다. 관리자가 채우지 않습니다.</p>
+        <div class="ad-prev-label" style="margin-top:16px">고객 화면 미리보기</div>
+        <div class="ad-img-prev">
+          <div class="img-guide" style="margin:0 0 10px">짙은 배경에 금속 광택이 살짝 도는 사진, 벨벳 · 대리석 같은 고급 질감, 조명이 어두운 공간 사진을 찾아보세요.</div>
+          <div class="kw-row"><span class="kw">#벨벳 질감</span><span class="kw">#샴페인 골드</span><span class="kw">#오페라 극장</span></div>
+        </div>
+      </div>
+    </div></div>
+    </div>
+
+    <!-- 색상 가이드라인 -->
+    <div id="panelColor" class="ad-panel hidden">
+      <div class="ad-bar">스타일 선택
+        <select id="adminStyleSel" onchange="renderAdminColor()"><option value="GBEC">격식 있는 프리미엄 (GBEC)</option><option value="GBEM">강렬한 하이엔드 (GBEM)</option><option value="GBRC">믿음직한 전문성 (GBRC)</option><option value="GBRM">스마트한 기업감 (GBRM)</option><option value="GSEC">차분한 깊이감 (GSEC)</option><option value="GSEM">정갈한 편안함 (GSEM)</option><option value="GSRC">지적인 단정함 (GSRC)</option><option value="GSRM">깨끗한 정확성 (GSRM)</option><option value="LBEC">정겨운 활기 (LBEC)</option><option value="LBEM">톡톡 튀는 개성 (LBEM)</option><option value="LBRC">당당한 활동감 (LBRC)</option><option value="LBRM">빠른 추진력 (LBRM)</option><option value="LSEC">다정한 손맛 (LSEC)</option><option value="LSEM">산뜻한 사랑스러움 (LSEM)</option><option value="LSRC">담백한 안목 (LSRC)</option><option value="LSRM">실용적인 깔끔함 (LSRM)</option></select>
+        <span class="ad-stat" id="adminStat">격식 있는 프리미엄 · 색상 가이드라인</span>
+      </div>
+      <div id="adminColorPane">
+    <div class="ad-color-grid">
+      <div class="ad-color-form">
+        <label>메인 이름</label><input data-k="adj" value="격식 있는 프리미엄">
+        <label>보조 설명</label><input data-k="sub" value="고급스럽고 특별한 대접을 받는 느낌">
+        <div class="ad-row2"><div><label>색상역 1 · 시작°</label><input type="number" min="0" max="360" data-k="h1a" value="340"></div>
+        <div><label>색상역 1 · 끝°</label><input type="number" min="0" max="360" data-k="h1b" value="30"></div></div>
+        <div class="ad-row2"><div><label>색상역 2 · 시작°<span class="ad-optional">선택</span></label><input type="number" min="0" max="360" data-k="h2a" value=""></div>
+        <div><label>색상역 2 · 끝°<span class="ad-optional">선택</span></label><input type="number" min="0" max="360" data-k="h2b" value=""></div></div>
+        <div class="ad-row2"><div><label>채도 최소</label><input type="number" min="0" max="100" data-k="s0" value="45"></div>
+        <div><label>채도 최대</label><input type="number" min="0" max="100" data-k="s1" value="75"></div></div>
+        <div class="ad-row2"><div><label>명도 최소</label><input type="number" min="0" max="100" data-k="b0" value="25"></div>
+        <div><label>명도 최대</label><input type="number" min="0" max="100" data-k="b1" value="60"></div></div>
+        <label>배색 방식</label>
+        <select data-k="scheme"><option value="tot" selected="">톤온톤 · 같은 색, 밝기만 다르게</option><option value="tit">톤인톤 · 이웃한 색을 나란히</option><option value="acc">포인트 · 차분한 바탕 + 강조 1색</option><option value="sep">세퍼레이션 · 두 색 사이에 중립색</option></select>
+        <label>이렇게 (운용 노트)</label><textarea data-k="note" rows="2">화면 전체를 어둡고 진하게 유지하세요. 밝은 색은 여백 역할만.</textarea>
+        <label>피하세요</label><textarea data-k="forbid" rows="2">파스텔 · 형광색, 밝은 주조색</textarea>
+        <button class="ad-apply" id="colorApplyBtn" style="margin-top:14px">이 스타일에 적용</button>
+        <div id="colorWarn"></div>
+      </div>
+      <div class="ad-color-preview">
+        <div class="ad-prev-label">실시간 미리보기</div>
+        <div id="colorPrevRanges">
+    <div class="rb-label"><span>색상</span><span class="val">허용 340°–30°</span></div>
+    <div class="rb" style="background:linear-gradient(90deg,#E65050 0.0%,#E66950 2.8%,#E68250 5.6%,#E69B50 8.3%,#E6B450 11.1%,#E6CD50 13.9%,#E6E650 16.7%,#CDE650 19.4%,#B4E650 22.2%,#9BE650 25.0%,#82E650 27.8%,#69E650 30.6%,#50E650 33.3%,#50E669 36.1%,#50E682 38.9%,#50E69B 41.7%,#50E6B4 44.4%,#50E6CD 47.2%,#50E6E6 50.0%,#50CDE6 52.8%,#50B4E6 55.6%,#509BE6 58.3%,#5082E6 61.1%,#5069E6 63.9%,#5050E6 66.7%,#6950E6 69.4%,#8250E6 72.2%,#9B50E6 75.0%,#B450E6 77.8%,#CD50E6 80.6%,#E650E6 83.3%,#E650CD 86.1%,#E650B4 88.9%,#E6509B 91.7%,#E65082 94.4%,#E65069 97.2%,#E65050 100.0%)"><span class="mask" style="left:8.333333333333334%;width:86.11111111111111%"></span><span class="win" style="left:94.44444444444444%;width:5.555555555555555%"></span><span class="win" style="left:0%;width:8.333333333333334%"></span><span class="dot" style="left:94.44444444444444%;background:#562234"></span></div>
+    <div class="rb-label" style="margin-top:12px"><span>채도</span><span class="val">허용 45–75</span></div><div class="rb" style="background:linear-gradient(90deg,#737373,#735660,#73394C,#731D39,#730026)">
+    <span class="mask" style="left:0;width:45%"></span><span class="mask" style="left:75%;width:25%"></span>
+    <span class="win" style="left:45%;width:30%"></span><span class="dot" style="left:60%;background:#562234"></span></div>
+    <div class="rb-label" style="margin-top:12px"><span>명도</span><span class="val">허용 25–60</span></div><div class="rb" style="background:linear-gradient(90deg,#000000,#401A26,#80334C,#BF4D73,#FF6699)">
+    <span class="mask" style="left:0;width:25%"></span><span class="mask" style="left:60%;width:40%"></span>
+    <span class="win" style="left:25%;width:35%"></span><span class="dot" style="left:33.75%;background:#562234"></span></div></div>
+        <div id="colorPrevPal" class="ad-prev-pal"><div class="prev-chip-wrap"><span class="prev-chip" style="background:#562234"></span><em>#562234</em></div><div class="prev-chip-wrap"><span class="prev-chip" style="background:#8E4860"></span><em>#8E4860</em></div><div class="prev-chip-wrap"><span class="prev-chip" style="background:#BC3A66"></span><em>#BC3A66</em></div><div class="prev-chip-wrap"><span class="prev-chip" style="background:#F5DDE5"></span><em>#F5DDE5</em></div><div class="prev-chip-wrap"><span class="prev-chip" style="background:#24191D"></span><em>#24191D</em></div></div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line)">
+          <div class="ad-prev-label">추천 폰트 목록 재생성</div>
+          <p style="font-size:11px;color:var(--ink2);line-height:1.6;margin-bottom:9px">폰트 리스트·분류 탭에서 16유형 태그나 오류 플래그를 바꾼 뒤 누르면, 결과창의 추천 8종을 다시 채웁니다.</p>
+          <button class="ad-apply" onclick="rebuildFontmapFromDB()">추천 목록 갱신</button>
+        </div>
+      </div>
+    </div></div>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap">
+  <div class="foot-main">브랜드 스타일 매트릭스 16 · 마크인포 — 업로드한 이미지는 이 화면에서만 보이고 서버에 저장되지 않습니다.</div>
+  <div class="foot-meta">MARKINFO · <span id="verLabel">v0.16.0</span> · <span id="buildDate">2026-09-03</span>
+  <a class="foot-admin" href="#admin" target="_blank" rel="noopener" title="새 창에서 관리자 열기">관리자 ↗</a></div>
+</div></footer>
+
+<div id="toast" class="">인터넷 연결이 불안정해 글꼴 검사 결과를 반영하지 않았어요</div>
+<input type="file" id="fileInput" accept="image/*" hidden="">
+
+
+
+
+<script src="assets/data/bsm-data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
